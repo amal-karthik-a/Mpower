@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mpower Program</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    body {
+        overflow-x: hidden;
+        background: #f8f9fa;
+        color: #333;
+    }
+
+    .parallax-cover {
+        height: 100vh;
+        background: rgb(39, 65, 71);
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .parallax-cover::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%);
+        z-index: 1;
+    }
+
+    .cover-content {
+        position: relative;
+        z-index: 2;
+        padding: 20px;
+        transform: translateY(0);
+        opacity: 1;
+        transition: all 1s ease;
+    }
+
+    .logo-container {
+        margin-bottom: 30px;
+        transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    .cover-title {
+        font-size: 5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: rgb(59, 204, 185);
+        animation: fadeInUp 1.5s ease;
+    }
+
+    .cover-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        font-weight: 300;
+        max-width: 700px;
+        line-height: 1.5;
+        animation: fadeInUp 1.8s ease;
+    }
+
+    .scroll-hint {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        animation: bounce 2s infinite;
+        cursor: pointer;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0) translateX(-50%);
+        }
+        40% {
+            transform: translateY(-30px) translateX(-50%);
+        }
+        60% {
+            transform: translateY(-15px) translateX(-50%);
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .section-title {
+        font-size: 3rem;
+        margin-bottom: 60px;
+        color: #333;
+        text-align: center;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .team {
+        padding: 100px 20px;
+        text-align: center;
+        position: relative;
+        background: #f8f9fa;
+    }
+
+    .team-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .team-member {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        overflow: hidden;
+        transform: translateY(0) scale(1);
+    }
+
+    .team-member:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .image-container {
+        position: relative;
+        margin-bottom: 20px;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .image-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(17, 17, 17, 0.897) 0%, rgba(46, 204, 112, 0.137) 100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+
+    .team-member:hover .image-container::before {
+        opacity: 0.7;
+    }
+
+    .team-member img, .teacher img {
+        width: 100%;
+        border-radius: 10px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .team-member:hover img {
+        transform: scale(1.1);
+    }
+
+    .team-member h3 {
+        margin: 15px 0 5px;
+        color: #333;
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+
+    .team-member p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .teachers {
+        padding: 100px 20px;
+        text-align: center;
+        position: relative;
+        background: #e9e9e9;
+        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    }
+
+    .teachers-container {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        max-width: 1000px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
+
+    .teacher {
+        background: white;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        overflow: hidden;
+        transform: translateY(0) scale(1);
+    }
+
+    .teacher:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .teacher h3 {
+        margin: 20px 0 8px;
+        color: #333;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .teacher p {
+        color: #666;
+        font-size: 1.2rem;
+    }
+
+    footer {
+        background: #333;
+        color: white;
+        padding: 25px;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+        .cover-title {
+            font-size: 3rem;
+        }
+        
+        .cover-subtitle {
+            font-size: 1.4rem;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+        }
+        
+        .team-member, .teacher {
+            width: 280px;
+        }
+        
+        .teacher {
+            padding: 25px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cover-title {
+            font-size: 2.5rem;
+        }
+        
+        .cover-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        
+        .team-member, .teacher {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+
+    .animated {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    .fadeIn {
+        animation: fadeIn 1s ease forwards;
+    }
+
+    .fadeInUp {
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    .zoomIn {
+        animation: zoomIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes zoomIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    a{
+        text-decoration: none;
+        color: rgba(207, 161, 7, 0.699);
+    }
+    </style>
+</head>
+<body>
+    <div id="particles-js" style="position: absolute; width: 100%; height: 100vh; z-index: 1;"></div>
+
+    <section class="parallax-cover">
+        <div class="cover-content">
+            <h1 class="cover-title">Mpower Program</h1>
+            <p class="cover-subtitle">Empowering individuals to achieve excellence</p>
+        </div>
+        <div class="scroll-hint">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </div>
+    </section>
+    
+    <section class="team">
+        <h2 class="section-title" data-aos="fade-up">Meet Our Team</h2>
+        <div class="team-container">
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="200">
+                <div class="image-container">
+                    <img src="./Advaith.jpg" alt="Team Member 2">
+                </div>
+                <h3>Advaith G Menon</h3>
+                <p>Captain</p>
+                <a style="text-decoration: none;" href="">Advaithgmenon10@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="100">
+                <div class="image-container">
+                    <img src="./Deva.jpg" alt="Team Member 4">
+                </div>
+                <h3>Deva P Anil</h3>
+                <p>Vice-Captain</p>
+                <a style="text-decoration: none;" href="">devapanil@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="100">
+                <div class="image-container">
+                    <img src="./Athul.jpg" alt="Team Member 1">
+                </div>
+                <h3>Athul Krishna v v</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">athulkrishna361@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="300">
+                <div class="image-container">
+                    <img src="./Adhil.jpg" alt="Team Member 3">
+                </div>
+                <h3>Adhil Jafar</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">123adhil123@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="200">
+                <div class="image-container">
+                    <img src="./Ann.jpg" alt="Team Member 5">
+                </div>
+                <h3>Ann Maria Joshy</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">annmariajoshy1983@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="300">
+                <div class="image-container">
+                    <img src="./Ebin.jpg" alt="Team Member 6">
+                </div>
+                <h3>Ebin sevi</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">ebin345ebin@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="100">
+                <div class="image-container">
+                    <img src="./Gopika.jpg" alt="Team Member 7">
+                </div>
+                <h3>Gopikaa Ashok</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">gopikaaashok1@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="200">
+                <div class="image-container">
+                    <img src="./Agnal.jpg" alt="Team Member 8">
+                </div>
+                <h3>Agnal VJ</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">Agnalvj001@gmail.com</a>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="300">
+                <div class="image-container">
+                    <img src="./Jdeep.jpg" alt="Team Member 9">
+                </div>
+                <h3>Jaideep Menon</h3>
+                <p>Active Member</p>
+                <a style="text-decoration: none;" href="">Agnalvj001@gmail.com</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Mpower Program. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: false,
+            mirror: true
+        });
+        
+        const parallaxCover = document.querySelector('.parallax-cover');
+        const coverContent = document.querySelector('.cover-content');
+        const logo = document.querySelector('.logo');
+        
+        window.addEventListener('scroll', function() {
+            let scrollPosition = window.pageYOffset;
+            let opacity = 1 - (scrollPosition * 2 / window.innerHeight);
+            let scale = 1 - (scrollPosition * 0.0005);
+            
+            parallaxCover.style.backgroundPositionY = scrollPosition * 0.7 + 'px';
+            
+            if (opacity > 0) {
+                coverContent.style.opacity = opacity;
+                coverContent.style.transform = `translateY(${scrollPosition * 0.4}px)`;
+                logo.style.transform = `scale(${scale}) rotate(${scrollPosition * 0.05}deg)`;
+            }
+        });
+        
+        document.querySelector('.scroll-hint').addEventListener('click', function() {
+            const teamSection = document.querySelector('.team');
+            teamSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        const teamMembers = document.querySelectorAll('.team-member');
+        teamMembers.forEach(member => {
+            member.addEventListener('mouseenter', function() {
+                this.querySelector('img').style.transform = 'scale(1.1)';
+            });
+            
+            member.addEventListener('mouseleave', function() {
+                this.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+        
+        const progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        progressBar.style.position = 'fixed';
+        progressBar.style.top = '0';
+        progressBar.style.left = '0';
+        progressBar.style.height = '4px';
+        progressBar.style.backgroundColor = '#3498db';
+        progressBar.style.zIndex = '9999';
+        progressBar.style.width = '0%';
+        progressBar.style.transition = 'width 0.2s ease';
+        document.body.appendChild(progressBar);
+        
+        window.addEventListener('scroll', function() {
+            const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalScroll) * 100;
+            progressBar.style.width = progress + '%';
+        });
+        
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#ffffff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                    move: { enable: true, speed: 2, direction: "none", random: true, out_mode: "out" }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
+        }
+        
+        function handleImageLoad() {
+            const images = document.querySelectorAll('.team-member img, .teacher img');
+            
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                img.onload = function() {
+                    img.style.opacity = '1';
+                };
+            });
+        }
+        
+        handleImageLoad();
+    });
+    </script>
+</body>
+</html>
